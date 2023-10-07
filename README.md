@@ -218,14 +218,14 @@ ID：999
 
 **ItemDao.java（パッケージ：jp.kronos.dao）**
 
-| 可視性 | メソッド名 | 戻り値 | 引数 | 例外 | 説明 |
-|-------|------------|-------|------|------|---------|
-| public | findAll  | List\<Item>    | なし |  | 商品データを全件取得する。 |
-| public | findByKeyword  | List\<Item>    | String |  | 商品名による部分一致検索で商品データを取得する。 |
-| public | findById | Item | int | DataNotFoundException | 引数のIDに紐付く商品データを取得する。<br>データが存在しない場合は戻り値としてNullを返す。 |
-| public | create   | なし | Item |  | 引数のItemクラスをもとに商品データを登録する。 |
-| public | update   | なし | Item |  | 引数のItemクラスをもとに商品データを更新する。 |
-| public | remove   | なし | int | DataNotFoundException | 引数のIDに紐づく商品データを削除する。 |
+| 可視性 | メソッド名 | 戻り値 | 引数 | 説明 |
+|-------|------------|-------|------|---------|
+| public | findAll  | List\<Item>    | なし | 商品データを全件取得する。 |
+| public | findByKeyword  | List\<Item>    | String | 商品名による部分一致検索で商品データを取得する。 |
+| public | findById | Item | int | 引数のIDに紐付く商品データを取得する。<br>データが存在しない場合はDataNotFoundExceptionをスローする。 |
+| public | create   | なし | Item | 引数のItemクラスをもとに商品データを登録する。 |
+| public | update   | なし | Item | 引数のItemクラスをもとに商品データを更新する。 |
+| public | remove   | なし | int | 引数のIDに紐づく商品データを削除する。<br>データが存在しない場合はDataNotFoundExceptionをスローする。 |
 
 > ソースコード内のコメントの「TODO」をもとに修正してください。
 
@@ -264,20 +264,9 @@ ID：999
 
 作成したフリマアプリに対して以下の改修を施してみましょう。
 
-- 他者が出品した商品は更新できないようにする
-- 他者が出品した商品は削除できないようにする
-- 出品時や商品更新時に「S、A、B、C、D、E」以外の状態を入力できないようにする
-- 画像テーブルを作成し、1商品の出品時に複数の画像を登録できるようにする
-    - 実際に画像データを登録するのは大変なので画像のファイル名（"image1.png"など）を入力させ、登録することとする
-```sql
-create table image (
-    id int primary key auto_increment,
-    item_id int not null,
-    file_name varchar(100) not null,
-    foreign key (item_id) references item(id)
-);
-```
-
-- 商品と画像の登録時にトランザクション制御を取り入れる
 - メニュー番号や価格の入力で整数以外が入力された場合に適切なメッセージを表示する
     - 例）入力されたメニュー番号が不正です。
+- 出品時や商品更新時に「S、A、B、C、D、E」以外の状態を入力できないようにする
+- 他者が出品した商品は削除できないようにする
+- 他者が出品した商品は更新できないようにする
+```
