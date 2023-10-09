@@ -216,12 +216,22 @@ ID：999
 
 ### 機能仕様
 
+**UserDao.java（パッケージ：jp.kronos.dao）**
+
+| 可視性 | メソッド名 | 戻り値 | 引数 | 説明 |
+|-------|------------|-------|------|---------|
+| public | findByEmailAndPassword  | User | String, String | 引数のメールアドレスとパスワードに一致するユーザ情報を取得する。 |
+
+> ソースコード内のコメントの「TODO」をもとに修正してください。
+
+<br>
+
 **ItemDao.java（パッケージ：jp.kronos.dao）**
 
 | 可視性 | メソッド名 | 戻り値 | 引数 | 説明 |
 |-------|------------|-------|------|---------|
 | public | findAll  | List\<Item>    | なし | 商品データを全件取得する。 |
-| public | findByKeyword  | List\<Item>    | String | 商品名による部分一致検索で商品データを取得する。 |
+| public | findByKeyword  | List\<Item>    | String | 引数の商品名による部分一致検索で商品データを取得する。 |
 | public | findById | Item | int | 引数のIDに紐付く商品データを取得する。<br>データが存在しない場合はDataNotFoundExceptionをスローする。 |
 | public | create   | なし | Item | 引数のItemクラスをもとに商品データを登録する。 |
 | public | update   | なし | Item | 引数のItemクラスをもとに商品データを更新する。 |
